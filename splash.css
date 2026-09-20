@@ -1,0 +1,230 @@
+#welcome-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #030504;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: splashIn .3s ease forwards;
+}
+
+.reveal-wrap {
+  position: relative;
+  width: min(92vw, 850px);
+  height: 180px;
+}
+
+/* EDITPEAK */
+.reveal-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(45px, 11vw, 100px);
+  font-weight: 900;
+  letter-spacing: .12em;
+
+  clip-path: inset(0 100% 0 0);
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,.4),
+    0 0 30px rgba(180,255,50,.3);
+
+  animation: textDraw 1.5s cubic-bezier(.65,0,.2,1) .45s forwards;
+}
+
+/* LONG DIAGONAL SWORD */
+.reveal-sword {
+  position: absolute;
+  width: 24px;
+  height: 300px;
+  left: -50px;
+  top: -60px;
+
+  transform: rotate(43deg);
+
+  animation: swordMove 1.65s cubic-bezier(.65,0,.2,1) .25s forwards;
+}
+
+/* BLADE */
+.blade {
+  position: absolute;
+  left: 6px;
+  top: 0;
+  width: 13px;
+  height: 225px;
+
+  background: linear-gradient(
+    90deg,
+    #555,
+    #ddd 25%,
+    #fff 50%,
+    #aaa 75%,
+    #444
+  );
+
+  clip-path: polygon(
+    50% 0,
+    100% 10%,
+    78% 100%,
+    50% 94%,
+    22% 100%,
+    0 10%
+  );
+
+  box-shadow:
+    0 0 10px rgba(255,255,255,.8),
+    0 0 25px rgba(180,255,50,.5);
+}
+
+/* BLADE SHINE */
+.blade::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 260px;
+  left: 4px;
+  top: -20px;
+
+  background: linear-gradient(
+    transparent,
+    #fff,
+    transparent
+  );
+
+  filter: blur(3px);
+
+  animation: shine 1s .65s ease forwards;
+}
+
+/* GUARD */
+.guard {
+  position: absolute;
+  top: 215px;
+  left: -27px;
+
+  width: 78px;
+  height: 10px;
+
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    #555,
+    #cfff72,
+    #fff,
+    #cfff72,
+    #555
+  );
+
+  box-shadow: 0 0 15px rgba(180,255,50,.7);
+}
+
+/* HANDLE */
+.handle {
+  position: absolute;
+  top: 220px;
+  left: 7px;
+
+  width: 12px;
+  height: 70px;
+
+  border-radius: 4px;
+
+  background: repeating-linear-gradient(
+    0deg,
+    #111 0 7px,
+    #777 8px,
+    #111 10px
+  );
+}
+
+/* ANIMATIONS */
+
+@keyframes splashIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Sword travels across EDITPEAK */
+@keyframes swordMove {
+  0% {
+    left: -100px;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    left: calc(100% + 70px);
+    opacity: 1;
+  }
+}
+
+/* Text gets revealed as sword passes */
+@keyframes textDraw {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(220px);
+    opacity: 0;
+  }
+}
+
+/* WEBSITE REVEAL */
+#welcome-splash.hide {
+  animation: websiteReveal .7s ease forwards;
+}
+
+@keyframes websiteReveal {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.03);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .reveal-wrap {
+    width: 95vw;
+    height: 130px;
+  }
+
+  .reveal-text {
+    font-size: clamp(34px, 11vw, 58px);
+    letter-spacing: .08em;
+  }
+
+  .reveal-sword {
+    transform: rotate(43deg) scale(.72);
+  }
+}
